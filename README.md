@@ -3,46 +3,46 @@
 Este proyecto contiene las siguientes tecnologías. 
 
 *- Docker-compose*
-
-*- Docker *
-
+*- Docker*
 *- Java*
-
 *- Maven*
-
 *- Spring-boot*
-
 *- Spring-Cloud*
-
 *- Eureka-server*
-
 *- Histrix*
-
 *- Turbine*
 
-
 Comandos utilizados para realizar el lebantamiento del ejemplo:
+
 -> git clone https://github.com/ChristopherAriasC/docker-compose-spring-eureka-hystrix.git
 
 -> cd docker-compose-spring-eureka-hystrix
 
 -> docker compose up -d
 
-ya con ello se lebantan los servicios y podemos acceder a ellos mediante las siguientes URLs:
+Con esto se levantan los servicios sobre docker y podemos acceder a ellos mediante las siguientes URLs:
 
-servicio uno ejemplo:
+# Servicio uno ejemplo:
+
 http://localhost:5000/api-example/
+
 http://localhost:5000/api-example/hola/MI-NOMBRE
+
 http://localhost:5000/api-example/comunicacion-falback/miNombre
 
-Servicio dos ejemplo:
+
+# Servicio dos ejemplo:
+
 http://localhost:5001/api-actuator/hola/MI-NOMBRE
+
 http://localhost:5001/api-actuator/
 
-Eureka Server
-http://192.168.1.67:8761/
+# Eureka Server
 
-Hystrix
+http://localhost:8761/
+
+# Hystrix:
+
 http://localhost:9000/hystrix/monitor?stream=http%3A%2F%2Flocalhost%3A9000%2Fturbine.stream%3Fcluster%3Ddefault&title=cluster
 
 
