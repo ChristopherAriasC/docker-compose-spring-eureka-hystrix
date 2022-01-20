@@ -1,0 +1,78 @@
+## docker-compose.yml para desplegar proyecto de spring cloud y boot ##
+# Documentacion de histrix y trubine como cluster defautl y tambien como clusters independiente con la propiedad:
+# turbine.aggregator.clusterConfig=NAME-SERVICE deben de llamarse igual que el registro que se muestra en UREKA en mayusculas.
+# para desabilitar el cluster defualt y aplicar los clusters independientes con la propiedad anterior
+# turbine.endpoints.clusters.enabled=false
+# DOCUMENTACION COMPLET:       https://stackabuse.com/spring-cloud-turbine/
+#
+# DOCUMENTACION DE COMPATIBILIDADES entre Spring cloud y spring boot 
+# https://github.com/spring-cloud/spring-cloud-release/wiki/Spring-Cloud-Hoxton-Release-Notes
+#
+# La URL de Accedo a dashboard de Hystrix para el cluster default creado en la aplcacion es:
+# http://${PRINCIPAL_HOST_IP_TO_RUN_SERVICE}:9000/hystrix/monitor?stream=http://${PRINCIPAL_HOST_IP_TO_RUN_SERVICE:localhost}/turbine.stream?cluster=default&title=cluster
+version: "3.8"
+services:
+############################################
+##COMIENZA SECCIÓN PARA LEBANTAR PROYECTO"##
+############################################
+  
+  #Despligue de servidor EUREKA, con el que 
+  #se comienzan a registrar los servicios.
+  eurekaserver:
+    image: eureka-server
+    build: ./EurekaServer/
+    environment:
+      - PRINCIPAL_HOST_IP_TO_RUN_SERVICE
+      - SERVER_PORT=8761      
+    ports:
+      - "8761:8761"
+
+  servicespring:
+    image: service-spring
+    build: ./doker-example/
+    depends_on:
+      - eurekaserver
+    environment:
+      - PRINCIPAL_HOST_IP_TO_RUN_SERVICE
+      - SERVER_PORT=5000
+      - URL_SERVICE_ACTUATOR=http://actuatorexam:5001
+      - DOCKER_HOST_EUREKA
+      - REGISTER-NAME=servicespring      
+    ports:
+      - "5000:5000"
+
+  actuatorexam:
+    image: actuator-exam    
+    build: 
+      context: ./Actuator/
+      args:
+        JAR_FILE_NAME_DOCKER: Actuator-0.0.1-SNAPSHOT
+    depends_on:
+      - eurekaserver
+    environment:
+      - PRINCIPAL_HOST_IP_TO_RUN_SERVICE
+      - SERVER_PORT=5001
+      - JAR_FILE_NAME_DOCKER=Actuator-0.0.1-SNAPSHOT      
+      - DOCKER_HOST_EUREKA
+      - REGISTER-NAME=actuatorexam
+    ports:
+      - "5001:5001"
+
+  hystrixascluster:
+    image: hystrix-cluster
+    build: 
+      context: ./Hystrix/
+      args:
+        JAR_FILE_NAME_DOCKER: Hystrix-e-0.0.1-SNAPSHOT
+    depends_on:      
+      - servicespring
+      - actuatorexam
+    environment:
+      - PRINCIPAL_HOST_IP_TO_RUN_SERVICE
+      - SERVER_PORT=9000
+      - JAR_FILE_NAME_DOCKER=Hystrix-e-0.0.1-SNAPSHOT
+      - DOCKER_HOST_EUREKA
+      - REGISTER-NAME=hystrix-cluster
+      - SERVICES_NAMES_REGISTER=servicespring,actuatorexam
+    ports:
+      - "9000:9000"
