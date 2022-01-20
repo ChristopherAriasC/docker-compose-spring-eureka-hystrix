@@ -5,9 +5,6 @@
 # turbine.endpoints.clusters.enabled=false
 # DOCUMENTACION COMPLET:       https://stackabuse.com/spring-cloud-turbine/
 #
-# DOCUMENTACION DE COMPATIBILIDADES entre Spring cloud y spring boot 
-# https://github.com/spring-cloud/spring-cloud-release/wiki/Spring-Cloud-Hoxton-Release-Notes
-#
 # La URL de Accedo a dashboard de Hystrix para el cluster default creado en la aplcacion es:
 # http://${PRINCIPAL_HOST_IP_TO_RUN_SERVICE}:9000/hystrix/monitor?stream=http://${PRINCIPAL_HOST_IP_TO_RUN_SERVICE:localhost}/turbine.stream?cluster=default&title=cluster
 version: "3.8"
