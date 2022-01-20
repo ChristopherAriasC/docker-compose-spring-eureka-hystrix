@@ -46,7 +46,9 @@ http://localhost:8761/
 http://localhost:9000/hystrix/monitor?stream=http%3A%2F%2Flocalhost%3A9000%2Fturbine.stream%3Fcluster%3Ddefault&title=cluster
 
 
-Referencia del proyecto integracion hystrix dashboard y turbine: https://stackabuse.com/spring-cloud-turbine/
+# Referencias
+
+Proyecto integracion hystrix dashboard y turbine: https://stackabuse.com/spring-cloud-turbine/
 
 Doctcumentación compatibilidad entre Spring cloud y spring boot:  https://github.com/spring-cloud/spring-cloud-release/wiki/Spring-Cloud-Hoxton-Release-Notes
 
