@@ -1,4 +1,4 @@
-# Proyecto que contiene el lebantamiento de un ambiente completo integrado con 2 servicios de ejemplo.
+# Proyecto que contiene el levantamiento de un ambiente completo integrado con 2 servicios de ejemplo.
 
 Este proyecto contiene las siguientes tecnologías. 
 
@@ -12,7 +12,7 @@ Este proyecto contiene las siguientes tecnologías.
 *- Histrix*
 *- Turbine*
 
-Comandos utilizados para realizar el lebantamiento del ejemplo:
+Comandos utilizados para realizar el levantamiento del ejemplo:
 
 -> git clone https://github.com/ChristopherAriasC/docker-compose-spring-eureka-hystrix.git
 
